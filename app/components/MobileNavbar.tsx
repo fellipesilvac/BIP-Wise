@@ -18,7 +18,7 @@ function MobileNavItem({ icon, label, isActive = false, onClick }: MobileNavItem
     return (
         <button
             onClick={onClick}
-            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl transition-colors ${isActive ? 'text-[#9fe870]' : 'text-[#e8ebe6] opacity-60 hover:opacity-100'
+            className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 px-0 rounded-xl transition-colors ${isActive ? 'text-[#9fe870]' : 'text-[#e8ebe6] opacity-60 hover:opacity-100'
                 }`}
         >
             <div className="w-6 h-6">
@@ -31,8 +31,8 @@ function MobileNavItem({ icon, label, isActive = false, onClick }: MobileNavItem
 
 export default function MobileNavbar() {
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-sm bg-[rgba(23,25,22,0.7)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-[32px] px-2 py-2 z-50 md:hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-            <div className="flex items-center justify-between px-2">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-sm bg-[rgba(23,25,22,0.7)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-[32px] overflow-hidden z-50 md:hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+            <div className="flex items-center w-full">
                 <MobileNavItem
                     icon={<HomeIcon className="w-6 h-6" />}
                     label="Início"
