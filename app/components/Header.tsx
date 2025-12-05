@@ -6,7 +6,7 @@ const imgImage1 = "/wise-logo.png";
 
 export default function Header() {
     return (
-        <div className="bg-gradient-to-b flex from-[#121511] gap-4 md:gap-8 h-[100px] md:h-[140px] items-center justify-between md:justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-[3] px-4 md:px-0" data-node-id="28:93">
+        <div className="bg-gradient-to-b flex from-[#121511] gap-4 md:gap-8 h-[100px] md:h-[140px] items-center justify-between md:justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-30 px-4 md:px-0" data-node-id="28:93">
 
             {/* Mobile Logo */}
             <div className="md:hidden h-6 relative shrink-0 w-[106px]">

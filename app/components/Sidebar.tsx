@@ -62,7 +62,7 @@ export default function Sidebar() {
     const isIndicacoesActive = pathname.startsWith('/indicacoes') || pathname === '/carteira' || pathname === '/academy';
 
     return (
-        <div className="hidden md:flex box-border flex-col items-start overflow-hidden px-6 py-0 shrink-0 sticky top-0 w-[280px] h-screen" data-node-id="28:78">
+        <div className="hidden md:flex box-border flex-col items-start overflow-hidden px-6 py-0 shrink-0 sticky top-0 w-[280px] h-screen z-40" data-node-id="28:78">
             <div className="box-border flex flex-col gap-2.5 h-[140px] items-start justify-center px-4 py-0 relative shrink-0 w-full" data-node-id="28:79">
                 <div className="h-6 relative shrink-0 w-[106px]" data-name="image 1" data-node-id="28:80">
                     <img alt="Wise Logo" className="absolute inset-0 max-w-none object-center object-cover pointer-events-none w-full h-full" src={imgImage1} />
