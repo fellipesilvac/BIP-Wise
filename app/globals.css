@@ -16,8 +16,8 @@ body {
 }
 
 body {
-  color: #000;
-  background: #fff;
+  color: #e8ebe6;
+  background: #121511;
   font-family: var(--font-inter), sans-serif;
 }
 
@@ -26,3 +26,14 @@ a {
   text-decoration: none;
 }
 
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

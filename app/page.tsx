@@ -144,11 +144,11 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 box-border flex gap-2.5 grow items-start px-4 md:px-[92px] py-0 relative w-full" data-node-id="28:91">
+        <div className="flex-1 box-border flex gap-2.5 grow items-start px-0 md:px-[92px] py-0 relative w-full" data-node-id="28:91">
           <div className="flex-1 box-border flex flex-col grow isolate items-start px-0 md:px-11 py-0 relative self-stretch shrink-0 w-full" data-node-id="28:92">
 
             {/* Header */}
-            <div className="bg-gradient-to-b flex from-[#121511] gap-4 md:gap-8 h-[100px] md:h-[140px] items-center justify-between md:justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-[3]" data-node-id="28:93">
+            <div className="bg-gradient-to-b flex from-[#121511] gap-4 md:gap-8 h-[100px] md:h-[140px] items-center justify-between md:justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-[3] px-4 md:px-0" data-node-id="28:93">
 
               {/* Mobile Logo */}
               <div className="md:hidden h-6 relative shrink-0 w-[106px]">
@@ -167,7 +167,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-[42px] items-start relative shrink-0 w-full z-[2] py-8" data-node-id="28:100">
+            {/* Content Container - Added padding for mobile here since main container is full width */}
+            <div className="flex flex-col gap-[42px] items-start relative shrink-0 w-full z-[2] py-8 px-4 md:px-0" data-node-id="28:100">
               <div className="flex flex-col gap-2 items-start relative shrink-0 w-full" data-node-id="28:101">
                 <p className="font-manrope font-bold leading-[1.2] relative shrink-0 text-2xl md:text-[32px] text-white tracking-[-0.64px]" data-node-id="28:102">
                   Olá Fellipe Tavares,
@@ -181,29 +182,30 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-4 items-start relative shrink-0 w-full" data-node-id="28:104">
-                <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[320px] items-start relative shrink-0 w-full" data-node-id="28:105">
+                {/* Cards Container - Horizontal Scroll on Mobile */}
+                <div className="flex flex-row overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 gap-4 h-[320px] items-start relative shrink-0 w-[calc(100%+32px)] md:w-full" data-node-id="28:105">
                   <ServiceCard
                     subtitle="Serviço 1"
                     title="Agora você pode cadastrar uma Chave Pix na Wise"
                     bgColor="#204900"
-                    className="hover:bg-[#1f4a00] w-full md:w-auto min-h-[200px] md:min-h-0"
+                    className="hover:bg-[#1f4a00] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 2"
                     title="Descubra como enviar dinheiro sem taxas"
                     bgColor="#163300"
-                    className="hover:bg-[#153200] w-full md:w-auto min-h-[200px] md:min-h-0"
+                    className="hover:bg-[#153200] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 3"
                     title="Aproveite empréstimos com juros reduzidos"
                     bgColor="#171916" // Darker background for locked state
                     isLocked={true}
-                    className="hover:!bg-[#2A2C29] w-full md:w-auto min-h-[200px] md:min-h-0"
+                    className="hover:!bg-[#2A2C29] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
                   />
                 </div>
-                <div className="box-border flex gap-2.5 items-center justify-center px-1 py-0 relative shrink-0" data-node-id="28:142">
-                  <p className="font-inter font-normal leading-[1.4] opacity-40 relative shrink-0 text-[#e8ebe6] text-sm max-w-[702px]" data-node-id="28:143">
+                <div className="box-border flex gap-2.5 items-start justify-start px-0 relative shrink-0 w-full" data-node-id="28:142">
+                  <p className="font-inter font-normal leading-[1.4] opacity-40 relative shrink-0 text-[#e8ebe6] text-sm w-full max-w-[700px]" data-node-id="28:143">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.
                   </p>
                 </div>
@@ -213,8 +215,8 @@ export default function Home() {
                   Graduação mensal
                 </p>
                 <div className="bg-[rgba(255,255,255,0.1)] h-[375px] rounded-[18px] shrink-0 w-full" data-name="Component 1" data-node-id="28:146" />
-                <div className="box-border flex gap-2.5 items-center justify-center px-2 py-0 relative shrink-0" data-node-id="28:148">
-                  <p className="font-inter font-normal leading-[1.4] opacity-60 relative shrink-0 text-[#e8ebe6] text-sm max-w-[702px]" data-node-id="28:149">
+                <div className="box-border flex gap-2.5 items-start justify-start px-0 relative shrink-0 w-full" data-node-id="28:148">
+                  <p className="font-inter font-normal leading-[1.4] opacity-60 relative shrink-0 text-[#e8ebe6] text-sm w-full max-w-[700px]" data-node-id="28:149">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.
                   </p>
                 </div>
@@ -224,8 +226,8 @@ export default function Home() {
                   Graduação mensal
                 </p>
                 <div className="bg-[rgba(255,255,255,0.1)] h-[375px] rounded-[18px] shrink-0 w-full" data-name="Component 1" data-node-id="28:220" />
-                <div className="box-border flex gap-2.5 items-center justify-center px-2 py-0 relative shrink-0" data-node-id="28:221">
-                  <p className="font-inter font-normal leading-[1.4] opacity-60 relative shrink-0 text-[#e8ebe6] text-sm max-w-[702px]" data-node-id="28:222">
+                <div className="box-border flex gap-2.5 items-start justify-start px-0 relative shrink-0 w-full" data-node-id="28:221">
+                  <p className="font-inter font-normal leading-[1.4] opacity-60 relative shrink-0 text-[#e8ebe6] text-sm w-full max-w-[700px]" data-node-id="28:222">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.
                   </p>
                 </div>

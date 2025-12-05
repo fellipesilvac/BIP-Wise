@@ -56,7 +56,7 @@ function LoginForm() {
                         type="email"
                         placeholder="Seu e-mail"
                         required
-                        className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                        className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
                     />
                 </div>
 
@@ -67,7 +67,7 @@ function LoginForm() {
                         type="password"
                         placeholder="Sua senha"
                         required
-                        className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                        className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
                     />
                 </div>
 

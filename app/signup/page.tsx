@@ -46,7 +46,7 @@ export default function SignupPage() {
                             type="text"
                             placeholder="Nome completo"
                             required
-                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
                         />
                     </div>
 
@@ -57,7 +57,7 @@ export default function SignupPage() {
                             type="email"
                             placeholder="Seu e-mail"
                             required
-                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
                         />
                     </div>
 
@@ -73,7 +73,7 @@ export default function SignupPage() {
                                 setPassword(e.target.value)
                                 setTouched(true)
                             }}
-                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-12 text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-12 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
                         />
                         <button
                             type="button"
