@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import {
     User,
@@ -94,15 +95,15 @@ export default function ProfileDropdown() {
                         <span className="text-[#e8ebe6] font-inter text-sm flex-1">Meu Perfil</span>
                     </button>
 
-                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition-colors group text-left">
+                    <Link href="/configuracoes" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition-colors group text-left">
                         <Settings className="w-4 h-4 text-[#e8ebe6] opacity-60 group-hover:opacity-100 group-hover:text-[#9fe870] transition-all" />
                         <span className="text-[#e8ebe6] font-inter text-sm flex-1">Configurações</span>
-                    </button>
+                    </Link>
 
-                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition-colors group text-left">
+                    <Link href="/ajuda" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition-colors group text-left">
                         <LifeBuoy className="w-4 h-4 text-[#e8ebe6] opacity-60 group-hover:opacity-100 group-hover:text-[#9fe870] transition-all" />
                         <span className="text-[#e8ebe6] font-inter text-sm flex-1">Suporte</span>
-                    </button>
+                    </Link>
 
                     <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition-colors group text-left">
                         <BookOpen className="w-4 h-4 text-[#e8ebe6] opacity-60 group-hover:opacity-100 group-hover:text-[#9fe870] transition-all" />
@@ -117,9 +118,9 @@ export default function ProfileDropdown() {
                             <Sparkles className="w-3.5 h-3.5 text-[#9fe870]" />
                             <span className="text-[#e8ebe6] font-manrope font-bold text-xs">Plano PRO</span>
                         </div>
-                        <button className="text-[#9fe870] text-[10px] font-bold hover:underline">
+                        <Link href="/meu-plano" className="text-[#9fe870] text-[10px] font-bold hover:underline">
                             GERENCIAR
-                        </button>
+                        </Link>
                     </div>
                     <p className="text-[#e8ebe6] opacity-40 font-inter text-[10px] leading-relaxed">
                         Você tem acesso a todos os recursos premium e suporte prioritário.

@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react'
+import Link from 'next/link'
 import {
     Home as HomeIcon,
     FileText,
@@ -12,19 +14,36 @@ type MobileNavItemProps = {
     label: string
     isActive?: boolean
     onClick?: () => void
+    href?: string
 }
 
-function MobileNavItem({ icon, label, isActive = false, onClick }: MobileNavItemProps) {
-    return (
-        <button
-            onClick={onClick}
-            className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 px-0 rounded-xl transition-colors ${isActive ? 'text-[#9fe870]' : 'text-[#e8ebe6] opacity-60 hover:opacity-100'
-                }`}
-        >
+function MobileNavItem({ icon, label, isActive = false, onClick, href }: MobileNavItemProps) {
+    const className = `flex-1 flex flex-col items-center justify-center gap-1 py-3 px-0 rounded-xl transition-colors ${isActive ? 'text-[#9fe870]' : 'text-[#e8ebe6] opacity-60 hover:opacity-100'
+        }`
+
+    const content = (
+        <>
             <div className="w-6 h-6">
                 {icon}
             </div>
             <span className="text-[10px] font-medium">{label}</span>
+        </>
+    )
+
+    if (href) {
+        return (
+            <Link href={href} className={className} onClick={onClick}>
+                {content}
+            </Link>
+        )
+    }
+
+    return (
+        <button
+            onClick={onClick}
+            className={className}
+        >
+            {content}
         </button>
     )
 }
@@ -36,19 +55,23 @@ export default function MobileNavbar() {
                 <MobileNavItem
                     icon={<HomeIcon className="w-6 h-6" />}
                     label="Início"
+                    href="/"
                     isActive={true}
                 />
                 <MobileNavItem
                     icon={<FileText className="w-6 h-6" />}
                     label="Plano"
+                    href="/meu-plano"
                 />
                 <MobileNavItem
                     icon={<TrendingUp className="w-6 h-6" />}
                     label="Indicações"
+                    href="/indicacoes"
                 />
                 <MobileNavItem
                     icon={<LifeBuoy className="w-6 h-6" />}
                     label="Ajuda"
+                    href="/ajuda"
                 />
             </div>
         </div>
