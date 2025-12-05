@@ -63,7 +63,7 @@ type ServiceCardProps = {
 
 function ServiceCard({ subtitle, title, bgColor, isLocked = false, className = "" }: ServiceCardProps) {
   return (
-    <div className={`group flex-1 box-border flex flex-col gap-1.5 h-full items-end justify-end overflow-hidden pl-6 pr-16 py-6 relative rounded-[28px] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_5px_rgba(0,0,0,0.25)] cursor-pointer ${className}`} style={{ backgroundColor: bgColor }}>
+    <div className={`group flex-1 box-border flex flex-col gap-1.5 h-full items-end justify-end overflow-hidden pl-6 pr-16 py-6 relative rounded-[16px] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_5px_rgba(0,0,0,0.25)] cursor-pointer ${className}`} style={{ backgroundColor: bgColor }}>
       <p className="font-inter font-bold leading-none opacity-40 relative shrink-0 text-[#e8ebe6] text-xs uppercase w-full">
         {subtitle}
       </p>
@@ -183,25 +183,25 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-4 items-start relative shrink-0 w-full" data-node-id="28:104">
                 {/* Cards Container - Horizontal Scroll on Mobile */}
-                <div className="flex flex-row overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 gap-4 h-[320px] items-start relative shrink-0 w-[calc(100%+32px)] md:w-full" data-node-id="28:105">
+                <div className="flex flex-row overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 gap-4 pt-2 pb-6 items-start relative shrink-0 w-[calc(100%+32px)] md:w-full" data-node-id="28:105">
                   <ServiceCard
                     subtitle="Serviço 1"
                     title="Agora você pode cadastrar uma Chave Pix na Wise"
                     bgColor="#204900"
-                    className="hover:bg-[#1f4a00] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
+                    className="hover:bg-[#1f4a00] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-[300px] snap-center shrink-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 2"
                     title="Descubra como enviar dinheiro sem taxas"
                     bgColor="#163300"
-                    className="hover:bg-[#153200] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
+                    className="hover:bg-[#153200] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-[300px] snap-center shrink-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 3"
                     title="Aproveite empréstimos com juros reduzidos"
                     bgColor="#171916" // Darker background for locked state
                     isLocked={true}
-                    className="hover:!bg-[#2A2C29] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-full snap-center shrink-0"
+                    className="hover:!bg-[#2A2C29] min-w-[85vw] md:min-w-0 w-auto md:w-auto h-[300px] snap-center shrink-0"
                   />
                 </div>
                 <div className="box-border flex gap-2.5 items-start justify-start px-0 relative shrink-0 w-full" data-node-id="28:142">
