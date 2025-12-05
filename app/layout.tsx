@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   description: 'Projeto Next.js',
 }
 
+import { Toaster } from 'sonner'
+
+// ... imports
+
 export default function RootLayout({
   children,
 }: {
@@ -24,7 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} ${manrope.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${manrope.variable} font-sans antialiased`}>
+        {children}
+        <Toaster richColors position="top-center" />
+      </body>
     </html>
   )
 }

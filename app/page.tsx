@@ -15,9 +15,11 @@ import {
   Lock
 } from 'lucide-react';
 
+import ProfileDropdown from './components/ProfileDropdown';
+import MobileNavbar from './components/MobileNavbar';
+
 // Imagens - Coloque os arquivos PNG na pasta public/
 const imgImage1 = "/wise-logo.png"; // Logo da Wise
-const imgFrame10 = "/user-avatar.png"; // Avatar do usuário
 
 type MenuItemProps = {
   icon: React.ReactNode;
@@ -86,10 +88,10 @@ export default function Home() {
   const [isIndicacoesExpanded, setIsIndicacoesExpanded] = useState(true);
 
   return (
-    <div className="bg-[#121511] flex flex-col gap-2.5 items-center relative w-full min-h-screen" data-name="Slide 16:9 - 3" data-node-id="28:76">
+    <div className="bg-[#121511] flex flex-col gap-2.5 items-center relative w-full min-h-screen pb-20 md:pb-0" data-name="Slide 16:9 - 3" data-node-id="28:76">
       <div className="flex items-start relative w-full max-w-[1460px]" data-node-id="28:77">
-        {/* Sidebar */}
-        <div className="box-border flex flex-col items-start overflow-hidden px-6 py-0 shrink-0 sticky top-0 w-[280px] h-screen" data-node-id="28:78">
+        {/* Sidebar - Hidden on mobile */}
+        <div className="hidden md:flex box-border flex-col items-start overflow-hidden px-6 py-0 shrink-0 sticky top-0 w-[280px] h-screen" data-node-id="28:78">
           <div className="box-border flex flex-col gap-2.5 h-[140px] items-start justify-center px-4 py-0 relative shrink-0 w-full" data-node-id="28:79">
             <div className="h-6 relative shrink-0 w-[106px]" data-name="image 1" data-node-id="28:80">
               <img alt="Wise Logo" className="absolute inset-0 max-w-none object-center object-cover pointer-events-none w-full h-full" src={imgImage1} />
@@ -142,29 +144,35 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 box-border flex gap-2.5 grow items-start px-[92px] py-0 relative" data-node-id="28:91">
-          <div className="flex-1 box-border flex flex-col grow isolate items-start px-11 py-0 relative self-stretch shrink-0" data-node-id="28:92">
-            <div className="bg-gradient-to-b flex from-[#121511] gap-8 h-[140px] items-center justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-[3]" data-node-id="28:93">
-              <div className="bg-[#9fe870] box-border flex gap-3.5 items-center px-3.5 h-[30px] relative rounded-[60px] shrink-0 cursor-pointer hover:bg-[#8fd860] transition-colors" data-name="Component 2" data-node-id="28:94">
-                <p className="font-semibold leading-[1.4] relative shrink-0 text-[#163300] text-sm whitespace-nowrap" data-node-id="I28:94;1:8">
-                  Indique e ganhe
-                </p>
+        <div className="flex-1 box-border flex gap-2.5 grow items-start px-4 md:px-[92px] py-0 relative w-full" data-node-id="28:91">
+          <div className="flex-1 box-border flex flex-col grow isolate items-start px-0 md:px-11 py-0 relative self-stretch shrink-0 w-full" data-node-id="28:92">
+
+            {/* Header */}
+            <div className="bg-gradient-to-b flex from-[#121511] gap-4 md:gap-8 h-[100px] md:h-[140px] items-center justify-between md:justify-end shrink-0 sticky to-[rgba(18,21,17,0)] top-0 w-full z-[3]" data-node-id="28:93">
+
+              {/* Mobile Logo */}
+              <div className="md:hidden h-6 relative shrink-0 w-[106px]">
+                <img alt="Wise Logo" className="absolute inset-0 max-w-none object-center object-cover pointer-events-none w-full h-full" src={imgImage1} />
               </div>
-              <div className="flex gap-3 items-center justify-center relative shrink-0" data-node-id="28:95">
-                <div className="relative rounded-[60px] shrink-0 w-12 h-12" data-node-id="28:96">
-                  <div aria-hidden="true" className="absolute inset-0 pointer-events-none rounded-[60px]">
-                    <div className="absolute bg-[rgba(255,255,255,0.1)] inset-0 rounded-[60px]" />
-                    <img alt="User Avatar" className="absolute max-w-none object-center object-cover rounded-[60px] w-full h-full" src={imgFrame10} />
-                  </div>
+
+              <div className="flex items-center gap-3 md:gap-8">
+                <div className="bg-[#9fe870] box-border flex gap-3.5 items-center px-3.5 h-[30px] relative rounded-[60px] shrink-0 cursor-pointer hover:bg-[#8fd860] transition-colors" data-name="Component 2" data-node-id="28:94">
+                  <p className="font-semibold leading-[1.4] relative shrink-0 text-[#163300] text-xs md:text-sm whitespace-nowrap" data-node-id="I28:94;1:8">
+                    Indique e ganhe
+                  </p>
+                </div>
+                <div className="flex gap-3 items-center justify-center relative shrink-0" data-node-id="28:95">
+                  <ProfileDropdown />
                 </div>
               </div>
             </div>
+
             <div className="flex flex-col gap-[42px] items-start relative shrink-0 w-full z-[2] py-8" data-node-id="28:100">
               <div className="flex flex-col gap-2 items-start relative shrink-0 w-full" data-node-id="28:101">
-                <p className="font-manrope font-bold leading-[1.2] relative shrink-0 text-[32px] text-white tracking-[-0.64px]" data-node-id="28:102">
+                <p className="font-manrope font-bold leading-[1.2] relative shrink-0 text-2xl md:text-[32px] text-white tracking-[-0.64px]" data-node-id="28:102">
                   Olá Fellipe Tavares,
                 </p>
-                <p className="font-inter font-medium leading-[1.4] relative shrink-0 text-[#e8ebe6] text-lg" data-node-id="28:103">
+                <p className="font-inter font-medium leading-[1.4] relative shrink-0 text-[#e8ebe6] text-base md:text-lg" data-node-id="28:103">
                   <span>Sua assinatura está </span>
                   <span className="text-[#9fe870]">ativa</span>
                   <span>, você possui </span>
@@ -173,25 +181,25 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-4 items-start relative shrink-0 w-full" data-node-id="28:104">
-                <div className="flex gap-4 h-[320px] items-start relative shrink-0 w-full" data-node-id="28:105">
+                <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[320px] items-start relative shrink-0 w-full" data-node-id="28:105">
                   <ServiceCard
                     subtitle="Serviço 1"
                     title="Agora você pode cadastrar uma Chave Pix na Wise"
                     bgColor="#204900"
-                    className="hover:bg-[#1f4a00]"
+                    className="hover:bg-[#1f4a00] w-full md:w-auto min-h-[200px] md:min-h-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 2"
                     title="Descubra como enviar dinheiro sem taxas"
                     bgColor="#163300"
-                    className="hover:bg-[#153200]"
+                    className="hover:bg-[#153200] w-full md:w-auto min-h-[200px] md:min-h-0"
                   />
                   <ServiceCard
                     subtitle="Serviço 3"
                     title="Aproveite empréstimos com juros reduzidos"
                     bgColor="#171916" // Darker background for locked state
                     isLocked={true}
-                    className="hover:!bg-[#2A2C29]"
+                    className="hover:!bg-[#2A2C29] w-full md:w-auto min-h-[200px] md:min-h-0"
                   />
                 </div>
                 <div className="box-border flex gap-2.5 items-center justify-center px-1 py-0 relative shrink-0" data-node-id="28:142">
@@ -227,6 +235,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <MobileNavbar />
     </div>
   );
 }
