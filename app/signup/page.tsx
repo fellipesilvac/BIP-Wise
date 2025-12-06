@@ -5,11 +5,60 @@ import { Mail, Lock, User, Eye, EyeOff, Check, X } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { createClient } from '@/utils/supabase/client'
 
 export default function SignupPage() {
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [touched, setTouched] = useState(false)
+
+    // New Fields State
+    const [username, setUsername] = useState('')
+    const [usernameStatus, setUsernameStatus] = useState<'idle' | 'valid' | 'invalid'>('idle')
+    const [isCheckingUsername, setIsCheckingUsername] = useState(false)
+
+    const [referralUsername, setReferralUsername] = useState('')
+    const [referralStatus, setReferralStatus] = useState<'idle' | 'valid' | 'invalid'>('idle')
+    const [parentId, setParentId] = useState<string | null>(null)
+    const [isCheckingReferral, setIsCheckingReferral] = useState(false)
+
+    const supabase = createClient()
+
+    const validateUsername = async (val: string) => {
+        if (!val || val.length < 3) {
+            setUsernameStatus('invalid');
+            return;
+        }
+        setIsCheckingUsername(true);
+        const { data, error } = await supabase.rpc('check_username_available', { p_username: val });
+        // RPC: check_username_available returns TRUE if available
+        if (data === true) {
+            setUsernameStatus('valid');
+        } else {
+            setUsernameStatus('invalid');
+            toast.error('Este nome de usuário já está em uso.');
+        }
+        setIsCheckingUsername(false);
+    }
+
+    const validateReferral = async (val: string) => {
+        if (!val) {
+            setReferralStatus('invalid');
+            return;
+        }
+        setIsCheckingReferral(true);
+        const { data, error } = await supabase.rpc('get_profile_id_by_username', { p_username: val });
+        // RPC returns UUID or NULL
+        if (data) {
+            setReferralStatus('valid');
+            setParentId(data);
+        } else {
+            setReferralStatus('invalid');
+            setParentId(null);
+            toast.error('Conta de indicação não encontrada.');
+        }
+        setIsCheckingReferral(false);
+    }
 
     const checks = {
         minLength: password.length >= 8,
@@ -24,6 +73,15 @@ export default function SignupPage() {
             toast.error('A senha não atende aos requisitos de segurança.')
             return
         }
+        if (usernameStatus !== 'valid') {
+            toast.error('Verifique seu nome de usuário.')
+            return
+        }
+        if (referralStatus !== 'valid' || !parentId) {
+            toast.error('Conta de indicação inválida.')
+            return
+        }
+
         await signup(formData)
     }
 
@@ -39,15 +97,68 @@ export default function SignupPage() {
                 </div>
 
                 <form action={handleSubmit} className="flex flex-col gap-4">
+                    {/* Hidden input for validated Parent ID */}
+                    <input type="hidden" name="parentId" value={parentId || ''} />
+
+                    <div className="flex gap-4">
+                        <div className="relative flex-1">
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#e8ebe6] opacity-40" />
+                            <input
+                                name="fullName"
+                                type="text"
+                                placeholder="Nome completo"
+                                required
+                                className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                            />
+                        </div>
+                        <div className="relative flex-1">
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#e8ebe6] opacity-40" />
+                            <input
+                                name="username"
+                                type="text"
+                                placeholder="Seu usuário"
+                                required
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setUsername(val);
+                                    setUsernameStatus('idle');
+                                }}
+                                onBlur={() => validateUsername(username)}
+                                className={`w-full bg-[rgba(255,255,255,0.05)] border rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none transition-colors font-inter
+                                 ${usernameStatus === 'valid' ? 'border-[#9fe870]' : usernameStatus === 'invalid' ? 'border-red-500' : 'border-[rgba(255,255,255,0.1)] focus:border-[#9fe870]'}
+                               `}
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                                {isCheckingUsername && <div className="w-3 h-3 rounded-full border-2 border-[#9fe870] border-t-transparent animate-spin"></div>}
+                                {usernameStatus === 'valid' && <Check className="w-4 h-4 text-[#9fe870]" />}
+                                {usernameStatus === 'invalid' && <X className="w-4 h-4 text-red-500" />}
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#e8ebe6] opacity-40" />
                         <input
-                            name="fullName"
+                            name="referralUsername"
                             type="text"
-                            placeholder="Nome completo"
+                            placeholder="Usuário de quem te convidou (Obrigatório)"
                             required
-                            className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none focus:border-[#9fe870] transition-colors font-inter"
+                            onChange={(e) => {
+                                setReferralUsername(e.target.value);
+                                setReferralStatus('idle');
+                                setParentId(null);
+                            }}
+                            onBlur={(e) => validateReferral(e.target.value)}
+                            className={`w-full bg-[rgba(255,255,255,0.05)] border rounded-xl py-3 pl-12 pr-4 text-base text-[#e8ebe6] placeholder:text-[#e8ebe6] placeholder:opacity-40 focus:outline-none transition-colors font-inter
+                                ${referralStatus === 'valid' ? 'border-[#9fe870]' : referralStatus === 'invalid' ? 'border-red-500' : 'border-[rgba(255,255,255,0.1)] focus:border-[#9fe870]'}
+                            `}
                         />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                            {isCheckingReferral && <div className="w-3 h-3 rounded-full border-2 border-[#9fe870] border-t-transparent animate-spin"></div>}
+                            {referralStatus === 'valid' && <Check className="w-4 h-4 text-[#9fe870]" />}
+                            {referralStatus === 'invalid' && <X className="w-4 h-4 text-red-500" />}
+                        </div>
+                        {referralStatus === 'invalid' && <p className="text-red-500 text-xs mt-1 ml-2">Usuário não encontrado.</p>}
                     </div>
 
                     <div className="relative">
@@ -102,6 +213,7 @@ export default function SignupPage() {
 
                     <button
                         type="submit"
+                        disabled={!isValid || usernameStatus !== 'valid' || referralStatus !== 'valid'}
                         className="w-full bg-[#9fe870] hover:bg-[#8fd860] text-[#163300] font-semibold py-3 rounded-xl transition-colors font-inter mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Criar conta

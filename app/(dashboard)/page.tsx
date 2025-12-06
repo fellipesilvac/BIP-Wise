@@ -18,7 +18,7 @@ type ServiceCardProps = {
 
 function ServiceCard({ subtitle, title, bgColor, isLocked = false, className = "" }: ServiceCardProps) {
   return (
-    <div className={`group flex-1 box-border flex flex-col gap-1.5 h-full items-end justify-end overflow-hidden pl-6 pr-16 py-6 relative rounded-[16px] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_5px_rgba(0,0,0,0.25)] cursor-pointer ${className}`} style={{ backgroundColor: bgColor }}>
+    <div className={`group flex-1 box-border flex flex-col gap-1.5 items-end justify-end overflow-hidden pl-6 pr-16 py-6 relative rounded-[16px] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_5px_rgba(0,0,0,0.25)] cursor-pointer ${className}`} style={{ backgroundColor: bgColor }}>
       <p className="font-inter font-bold leading-none opacity-40 relative shrink-0 text-[#e8ebe6] text-xs uppercase w-full">
         {subtitle}
       </p>

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import ProfileDropdown from './ProfileDropdown';
 
 const imgImage1 = "/wise-logo.png";
@@ -14,11 +15,13 @@ export default function Header() {
             </div>
 
             <div className="flex items-center gap-3 md:gap-8">
-                <div className="bg-[#9fe870] box-border flex gap-3.5 items-center px-3.5 h-[30px] relative rounded-[60px] shrink-0 cursor-pointer hover:bg-[#8fd860] transition-colors" data-name="Component 2" data-node-id="28:94">
-                    <p className="font-semibold leading-[1.4] relative shrink-0 text-[#163300] text-xs md:text-sm whitespace-nowrap" data-node-id="I28:94;1:8">
-                        Indique e ganhe
-                    </p>
-                </div>
+                <Link href="/indique">
+                    <div className="bg-[#9fe870] box-border flex gap-3.5 items-center px-3.5 h-[30px] relative rounded-[60px] shrink-0 cursor-pointer hover:bg-[#8fd860] transition-colors" data-name="Component 2" data-node-id="28:94">
+                        <p className="font-semibold leading-[1.4] relative shrink-0 text-[#163300] text-xs md:text-sm whitespace-nowrap" data-node-id="I28:94;1:8">
+                            Indique e ganhe
+                        </p>
+                    </div>
+                </Link>
                 <div className="flex gap-3 items-center justify-center relative shrink-0" data-node-id="28:95">
                     <ProfileDropdown />
                 </div>

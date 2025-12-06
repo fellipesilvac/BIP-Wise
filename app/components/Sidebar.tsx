@@ -119,10 +119,10 @@ export default function Sidebar() {
                     href="/ajuda"
                 />
                 <MenuItem
-                    icon={<Settings className={`w-6 h-6 ${pathname === '/configuracoes' ? 'text-[#9fe870]' : 'text-[#e8ebe6]'}`} />}
+                    icon={<Settings className={`w-6 h-6 ${pathname.startsWith('/settings') ? 'text-[#9fe870]' : 'text-[#e8ebe6]'}`} />}
                     label="Configurações"
-                    isActive={pathname === '/configuracoes'}
-                    href="/configuracoes"
+                    isActive={pathname.startsWith('/settings')}
+                    href="/settings"
                 />
             </div>
         </div>
