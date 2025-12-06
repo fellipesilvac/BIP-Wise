@@ -15,7 +15,9 @@ export default function DashboardLayout({
                     <div className="flex-1 box-border flex gap-2.5 grow items-start px-0 md:px-[92px] py-0 relative w-full">
                         <div className="flex-1 box-border flex flex-col grow isolate items-start px-0 md:px-11 py-0 relative self-stretch shrink-0 w-full">
                             <Header />
-                            {children}
+                            <div className="w-full px-4 md:px-0">
+                                {children}
+                            </div>
                         </div>
                     </div>
                 </div>
