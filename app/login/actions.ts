@@ -46,7 +46,7 @@ export async function signup(formData: FormData) {
     })
 
     if (error) {
-        redirect('/login?error=Could not authenticate user')
+        redirect(`/login?error=${encodeURIComponent(error.message)}`)
     }
 
     // Redirect to login page with success message

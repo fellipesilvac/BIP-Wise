@@ -16,6 +16,8 @@ interface ProfileDrawerProps {
 
 export default function ProfileDrawer({ isOpen, onClose, profile }: ProfileDrawerProps) {
     const supabase = createClient();
+    const [fetchedProfile, setFetchedProfile] = useState<Profile | null>(null);
+    const [realDirectsCount, setRealDirectsCount] = useState<number | null>(null);
     const [currentUserId, setCurrentUserId] = useState<string | null>(null);
     const [copiedUsername, setCopiedUsername] = useState(false);
     const [copiedWhatsapp, setCopiedWhatsapp] = useState(false);
@@ -32,14 +34,50 @@ export default function ProfileDrawer({ isOpen, onClose, profile }: ProfileDrawe
         getUser();
     }, [supabase]);
 
+    // Fetch Fresh Profile Data on Open
+    useEffect(() => {
+        if (isOpen && profile?.id) {
+            // Reset state initially to show prop data
+            setFetchedProfile(profile);
+            setRealDirectsCount(null); // Reset count
+
+            async function fetchData() {
+                // 1. Fetch Profile Details
+                const profileQuery = supabase
+                    .from('profiles')
+                    .select('*, subscriptions(status, plans(name))')
+                    .eq('id', profile!.id)
+                    .single();
+
+                // 2. Fetch Real Count of Directs
+                const countQuery = supabase
+                    .from('profiles')
+                    .select('id', { count: 'exact', head: true })
+                    .eq('parent_id', profile!.id);
+
+                const [profileRes, countRes] = await Promise.all([profileQuery, countQuery]);
+
+                if (profileRes.data) {
+                    setFetchedProfile(profileRes.data as Profile);
+                }
+                if (countRes.count !== null) {
+                    setRealDirectsCount(countRes.count);
+                }
+            }
+            fetchData();
+        }
+    }, [isOpen, profile?.id, supabase]);
+
     // Fetch Parent Profile
     useEffect(() => {
-        if (profile?.parent_id) {
+        const activeProfile = fetchedProfile || profile; // Use fetched if available for parent logic too
+
+        if (activeProfile?.parent_id) {
             async function getParent() {
                 const { data } = await supabase
                     .from('profiles')
                     .select('*')
-                    .eq('id', profile!.parent_id)
+                    .eq('id', activeProfile!.parent_id)
                     .single();
                 if (data) setParentProfile(data as Profile);
             }
@@ -47,7 +85,7 @@ export default function ProfileDrawer({ isOpen, onClose, profile }: ProfileDrawe
         } else {
             setParentProfile(null);
         }
-    }, [profile, supabase]);
+    }, [fetchedProfile, profile, supabase]);
 
     const handleCopy = (text: string, type: 'username' | 'whatsapp') => {
         navigator.clipboard.writeText(text);
@@ -62,15 +100,18 @@ export default function ProfileDrawer({ isOpen, onClose, profile }: ProfileDrawe
 
     if (!mounted || !profile) return null;
 
-    const isOwnProfile = currentUserId === profile.id;
-    const joinedDate = new Date(profile.created_at || Date.now()).toLocaleDateString('pt-BR', {
+    // Use fetchedProfile if available, otherwise fallback to prop profile
+    const displayProfile = fetchedProfile || profile;
+
+    const isOwnProfile = currentUserId === displayProfile.id;
+    const joinedDate = new Date(displayProfile.created_at || Date.now()).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
     });
 
-    const hasWhatsApp = !!profile.whatsapp;
-    const hasSocials = profile.display_social_links && profile.social_media_links && (profile.social_media_links.instagram || profile.social_media_links.twitter);
+    const hasWhatsApp = !!displayProfile.whatsapp;
+    const hasSocials = displayProfile.display_social_links && displayProfile.social_media_links && (displayProfile.social_media_links.instagram || displayProfile.social_media_links.twitter);
 
     return createPortal(
         <AnimatePresence>
@@ -185,7 +226,7 @@ export default function ProfileDrawer({ isOpen, onClose, profile }: ProfileDrawe
                                         Diretos
                                     </div>
                                     <div className="text-2xl font-bold text-[#e8ebe6]">
-                                        {profile.direct_referrals_count}
+                                        {realDirectsCount ?? displayProfile.direct_referrals_count}
                                     </div>
                                 </div>
                             </div>

@@ -4,10 +4,68 @@ import React, { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { Profile } from '@/app/types/profile';
 import TreeRow from './TreeRow';
-import { X, Search, FilterX } from 'lucide-react';
+import { X, Search, FilterX, ChevronDown, Check, Coins, MessageCircle } from 'lucide-react';
 
 interface TreeTableProps {
     onProfileClick?: (profile: Profile) => void;
+}
+
+// Custom Select Component
+interface SelectOption {
+    value: string;
+    label: string;
+}
+
+interface CustomSelectProps {
+    value: string;
+    onChange: (value: string) => void;
+    options: SelectOption[];
+    icon?: React.ReactNode;
+    placeholder: string;
+}
+
+function CustomSelect({ value, onChange, options, icon, placeholder }: CustomSelectProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    const selectedLabel = options.find(opt => opt.value === value)?.label || placeholder;
+
+    return (
+        <div className="relative min-w-[180px]">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                onBlur={() => setTimeout(() => setIsOpen(false), 200)} // Simple delay to allow click
+                className={`w-full bg-[#171916] border ${isOpen ? 'border-[#9fe870]/50' : 'border-[#ffffff10]'} rounded-lg px-4 py-2 text-sm text-[#e8ebe6] flex items-center justify-between gap-3 transition-all hover:border-[#ffffff20]`}
+            >
+                <div className="flex items-center gap-2 truncate">
+                    {icon && <span className="text-[#a8aaac]">{icon}</span>}
+                    <span className={value === 'all' ? 'text-[#a8aaac]' : 'text-[#e8ebe6]'}>
+                        {selectedLabel}
+                    </span>
+                </div>
+                <ChevronDown size={14} className={`text-[#a8aaac] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isOpen && (
+                <div className="absolute top-full left-0 mt-2 w-full bg-[#171916] border border-[#ffffff10] rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
+                    {options.map((option) => (
+                        <button
+                            key={option.value}
+                            onClick={() => {
+                                onChange(option.value);
+                                setIsOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center justify-between group ${value === option.value
+                                ? 'bg-[#9fe870]/10 text-[#9fe870]'
+                                : 'text-[#e8ebe6] hover:bg-[#ffffff05]'
+                                }`}
+                        >
+                            {option.label}
+                            {value === option.value && <Check size={14} />}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default function TreeTable({ onProfileClick }: TreeTableProps) {
@@ -112,6 +170,18 @@ export default function TreeTable({ onProfileClick }: TreeTableProps) {
         loadData();
     }, [hasActiveFilters, debouncedSearch, planFilter, whatsappFilter]);
 
+    // Helper options for CustomSelect
+    const planOptions = [
+        { value: 'all', label: 'Todos os Planos' },
+        ...availablePlans.map(p => ({ value: p.name.toLowerCase(), label: p.name }))
+    ];
+
+    const whatsappOptions = [
+        { value: 'all', label: 'WhatsApp (Todos)' },
+        { value: 'yes', label: 'Com WhatsApp' },
+        { value: 'no', label: 'Sem WhatsApp' },
+    ];
+
     return (
         <div className="w-full flex flex-col gap-4 font-inter">
 
@@ -132,35 +202,28 @@ export default function TreeTable({ onProfileClick }: TreeTableProps) {
                 </div>
 
                 {/* Filters */}
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
-                    <select
+                <div className="flex items-center gap-2 flex-wrap">
+                    <CustomSelect
                         value={planFilter}
-                        onChange={(e) => setPlanFilter(e.target.value)}
-                        className="bg-[#171916] border border-[#ffffff10] rounded-lg px-4 py-2 text-sm text-[#a8aaac] focus:outline-none focus:border-[#9fe870]/50 transition-colors min-w-[140px]"
-                    >
-                        <option value="all">Todos os Planos</option>
-                        {availablePlans.map(plan => (
-                            <option key={plan.id} value={plan.name.toLowerCase()}>
-                                {plan.name}
-                            </option>
-                        ))}
-                    </select>
+                        onChange={setPlanFilter}
+                        options={planOptions}
+                        icon={<Coins size={14} />}
+                        placeholder="Planos"
+                    />
 
-                    <select
+                    <CustomSelect
                         value={whatsappFilter}
-                        onChange={(e) => setWhatsappFilter(e.target.value)}
-                        className="bg-[#171916] border border-[#ffffff10] rounded-lg px-4 py-2 text-sm text-[#a8aaac] focus:outline-none focus:border-[#9fe870]/50 transition-colors min-w-[140px]"
-                    >
-                        <option value="all">WhatsApp (Todos)</option>
-                        <option value="yes">Com WhatsApp</option>
-                        <option value="no">Sem WhatsApp</option>
-                    </select>
+                        onChange={setWhatsappFilter}
+                        options={whatsappOptions}
+                        icon={<MessageCircle size={14} />}
+                        placeholder="WhatsApp"
+                    />
 
                     {/* Clear Filters Button */}
                     {hasActiveFilters && (
                         <button
                             onClick={clearAllFilters}
-                            className="bg-red-500/10 text-red-500 border border-red-500/20 rounded-lg px-3 py-2 hover:bg-red-500/20 transition-colors flex items-center gap-2 text-sm whitespace-nowrap font-medium"
+                            className="bg-red-500/10 text-red-500 border border-red-500/20 rounded-lg px-3 py-2 hover:bg-red-500/20 transition-colors flex items-center gap-2 text-sm whitespace-nowrap font-medium h-[38px]"
                             title="Limpar todos os filtros"
                         >
                             <FilterX size={16} />
